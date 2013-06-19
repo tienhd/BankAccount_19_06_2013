@@ -3,9 +3,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,6 +42,16 @@ public class BankAccountTest {
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         verify(bankAccountDao).getAccount(accountNumberCaptor.capture());
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
+    }
+
+    @Test
+    public void testOpenNewAccountThenGetByAccountNumber() {
+        BankAccount.openAccount(accountNumber);
+        BankAccountDTO accountDTO = new BankAccountDTO(accountNumber);
+        when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+
+        BankAccount.getAccount(accountNumber);
+        verify(bankAccountDao).getAccount(accountNumber);
     }
 
 
