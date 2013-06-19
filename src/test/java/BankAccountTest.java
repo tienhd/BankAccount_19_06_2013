@@ -60,12 +60,13 @@ public class BankAccountTest {
         double amount = 50;
         double balance = 100;
         String log = "deposited 50";
-        BankAccount.deposit(accountNumber,amount,log);
 
         BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
         when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
 
+        BankAccount.deposit(accountNumber,amount,log);
         verify(bankAccountDao).getAccount(accountNumber);
+
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
