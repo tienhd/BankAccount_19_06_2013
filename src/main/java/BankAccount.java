@@ -21,4 +21,8 @@ public class BankAccount {
     public static BankAccountDTO getAccount(String accountNumber) {
         return bankAccountDao.getAccount(accountNumber);
     }
+
+    public static void deposit(String accountNumber, double amount, String log) {
+
+    }
 }

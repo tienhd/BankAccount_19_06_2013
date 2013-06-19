@@ -54,7 +54,27 @@ public class BankAccountTest {
         verify(bankAccountDao).getAccount(accountNumber);
     }
 
+    @Test
+    public void testDepositMoneyToAccountThenSaveChangeToDatabase() {
+        double initBalance = 50;
+        double amount = 50;
+        double balance = 100;
+        String log = "deposited 50";
+        BankAccount.deposit(accountNumber,amount,log);
 
+        BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
+        when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+
+        verify(bankAccountDao).getAccount(accountNumber);
+        ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
+
+        assertEquals(accountNumberCaptor.getValue(),accountNumber);
+        assertEquals(balanceCaptor.getValue(),balance, 0.001);
+        assertEquals(logCaptor.getValue(),log);
+    }
 
 
 }
