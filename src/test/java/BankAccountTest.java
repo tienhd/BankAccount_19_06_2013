@@ -38,7 +38,13 @@ public class BankAccountTest {
         assertEquals(logCaptor.getValue(),log);
     }
 
-
+    @Test
+    public void testGetTheAccountByAccountNumber() {
+        BankAccount.getAccount(accountNumber);
+        ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
+        verify(bankAccountDao).getAccount(accountNumberCaptor.capture());
+        assertEquals(accountNumberCaptor.getValue(),accountNumber);
+    }
 
 
 }
