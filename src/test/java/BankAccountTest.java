@@ -17,6 +17,7 @@ import static org.mockito.Mockito.verify;
 public class BankAccountTest {
     BankAccountDao bankAccountDao = mock(BankAccountDao.class);
     public final String accountNumber = "1234567890";
+
     @Before
     public void setUp() {
         reset(bankAccountDao);
@@ -26,8 +27,16 @@ public class BankAccountTest {
     @Test
     public void testOpenNewAccountWithZeroBalanceAndSaveToDatabase() {
         BankAccount.openAccount(accountNumber);
+        double balance = 0;
+        String log = "Open new account";
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
-        verify(bankAccountDao).openAccount(accountNumberCaptor.capture());
+        ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
+        assertEquals(balanceCaptor.getValue(),balance,0.001);
+        assertEquals(logCaptor.getValue(),log);
     }
+
+
 }

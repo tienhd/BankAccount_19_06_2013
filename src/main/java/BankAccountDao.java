@@ -7,7 +7,7 @@
  */
 public class BankAccountDao {
 
-    public void openAccount(String capture) {
+    public void saveAccount(String accountNumber, Double balance, String log) {
 
     }
 }
