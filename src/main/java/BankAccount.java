@@ -18,7 +18,7 @@ public class BankAccount {
         bankAccountDao.saveAccount(accountNumber,balance,log);
     }
 
-    public static void getAccount(String accountNumber) {
-
+    public static BankAccountDTO getAccount(String accountNumber) {
+        return bankAccountDao.getAccount(accountNumber);
     }
 }
