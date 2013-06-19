@@ -10,4 +10,8 @@ public class BankAccountDao {
     public void saveAccount(String accountNumber, Double balance, String log) {
 
     }
+
+    public BankAccountDTO getAccount(String capture) {
+        return null;  //To change body of created methods use File | Settings | File Templates.
+    }
 }
