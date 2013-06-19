@@ -13,6 +13,6 @@ public class BankAccount {
     }
 
     public static void openAccount(String accountNumber) {
-
+        bankAccountDao.openAccount(accountNumber);
     }
 }
