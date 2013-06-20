@@ -106,5 +106,28 @@ public class BankAccountTest {
 
     }
 
+    @Test
+    public void testWithdrawMoneyFromAccountThenSaveChangeToDatabase() {
+        double initBalance = 100;
+        double amount = 50;
+        double balance = 50;
+        String log = "withdraw 50";
+
+        BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
+        when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+
+        BankAccount.withdraw(accountNumber,amount,log);
+        verify(bankAccountDao).getAccount(accountNumber);
+
+        ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
+
+        assertEquals(accountNumberCaptor.getValue(),accountNumber);
+        assertEquals(balanceCaptor.getValue(),balance, 0.001);
+        assertEquals(logCaptor.getValue(),log);
+    }
+
 
 }

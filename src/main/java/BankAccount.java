@@ -45,4 +45,8 @@ public class BankAccount {
     public static Calendar getTimeSystem() {
         return timeSystem;
     }
+
+    public static void withdraw(String accountNumber, double amount, String log) {
+
+    }
 }
