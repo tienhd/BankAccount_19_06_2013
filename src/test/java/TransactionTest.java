@@ -79,22 +79,24 @@ public class TransactionTest {
 
     @Test
     public void testGetAllTransactionOccurred() {
-        Transaction.getTransactionsOccurred();
-        verify(transactionDao).getTransactionOccurred();
+        Transaction.getTransactionsOccurred(accountNumber);
+        verify(transactionDao).getTransactionOccurred(accountNumber);
     }
 
     @Test
     public void testGetTransactionOccurredBetween2TimeStamp() {
         long startTime = 10000;
         long endTime = 10500;
-        Transaction.getTransactionsOccurred(startTime,endTime);
-        verify(transactionDao).getTransactionOccurred(startTime,endTime);
+        Transaction.getTransactionsOccurred(accountNumber,startTime,endTime);
+        verify(transactionDao).getTransactionOccurred(accountNumber,startTime,endTime);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void testGetTransactionOccurredBetween2TimeStampThrowExceptionWhenEndTimeSmallerThanStartTime() {
         long startTime = 10500;
         long endTime = 10000;
-        Transaction.getTransactionsOccurred(startTime,endTime);
+        Transaction.getTransactionsOccurred(accountNumber,startTime,endTime);
     }
+
+
 }

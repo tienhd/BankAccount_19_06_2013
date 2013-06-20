@@ -17,11 +17,11 @@ public class TransactionDao {
 
     }
 
-    public ArrayList<TransactionDTO> getTransactionOccurred() {
+    public ArrayList<TransactionDTO> getTransactionOccurred(String accountNumber) {
         return null;
     }
 
-    public ArrayList<TransactionDTO> getTransactionOccurred(long startTime, long endTime) {
+    public ArrayList<TransactionDTO> getTransactionOccurred(String accountNumber, long startTime, long endTime) {
         return null;
     }
 

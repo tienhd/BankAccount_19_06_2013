@@ -30,14 +30,14 @@ public class Transaction {
         transactionDao.withdrawLog(accountNumber, amountMoney, timeStamp, log);
     }
 
-    public static ArrayList<TransactionDTO> getTransactionsOccurred() {
-        return transactionDao.getTransactionOccurred();
+    public static ArrayList<TransactionDTO> getTransactionsOccurred(String accountNumber) {
+        return transactionDao.getTransactionOccurred(accountNumber);
     }
 
-    public static ArrayList<TransactionDTO> getTransactionsOccurred(long startTime, long endTime) {
+    public static ArrayList<TransactionDTO> getTransactionsOccurred(String accountNumber, long startTime, long endTime) {
         if (startTime > endTime) {
             throw new IllegalArgumentException("Error on timeStamp");
         }
-        return transactionDao.getTransactionOccurred(startTime,endTime);
+        return transactionDao.getTransactionOccurred(accountNumber,startTime,endTime);
     }
 }
