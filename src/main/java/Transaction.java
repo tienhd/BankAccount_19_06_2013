@@ -20,6 +20,7 @@ public class Transaction {
     }
 
     public static void depositLog(String accountNumber, double amountMoney, String log) {
-
+        long timeStamp = timeSystem.getTimeInMillis();
+        transactionDao.depositLog(accountNumber,amountMoney,timeStamp,log);
     }
 }
