@@ -31,6 +31,6 @@ public class Transaction {
     }
 
     public static ArrayList<TransactionDTO> getTransactionsOccurred() {
-        return null;
+        return transactionDao.getTransactionOccurred();
     }
 }
