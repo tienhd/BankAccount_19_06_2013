@@ -40,4 +40,8 @@ public class Transaction {
         }
         return transactionDao.getTransactionOccurred(accountNumber,startTime,endTime);
     }
+
+    public static void getTransactionsOccurred(String accountNumber, int n) {
+
+    }
 }

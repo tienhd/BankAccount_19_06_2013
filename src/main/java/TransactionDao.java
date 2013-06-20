@@ -25,4 +25,7 @@ public class TransactionDao {
         return null;
     }
 
+    public ArrayList<TransactionDTO> getTransactionOccurred(String accountNumber, int n) {
+        return null;
+    }
 }

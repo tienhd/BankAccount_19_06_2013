@@ -98,5 +98,10 @@ public class TransactionTest {
         Transaction.getTransactionsOccurred(accountNumber,startTime,endTime);
     }
 
-
+    @Test
+    public void testGetNNewestTransactionOccurred() {
+        int n = 5;
+        Transaction.getTransactionsOccurred(accountNumber,n);
+        verify(transactionDao).getTransactionOccurred(accountNumber,n);
+    }
 }
