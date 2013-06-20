@@ -1,3 +1,5 @@
+import java.util.Calendar;
+
 /**
  * Created with IntelliJ IDEA.
  * User: sqv-nbt
@@ -7,6 +9,8 @@
  */
 public class BankAccount {
     private static BankAccountDao bankAccountDao;
+    private static Calendar timeSystem;
+    private static TransactionDao transactionDao;
 
     public static void setBankAccountDao(BankAccountDao bankAccountDao) {
         BankAccount.bankAccountDao = bankAccountDao;
@@ -26,5 +30,17 @@ public class BankAccount {
         BankAccountDTO accountDTO = bankAccountDao.getAccount(accountNumber);
         double newBalance = accountDTO.getBalance() + amount;
         bankAccountDao.saveAccount(accountNumber,newBalance,log);
+    }
+
+    public static void setTimeSystem(Calendar timeSystem) {
+        BankAccount.timeSystem = timeSystem;
+    }
+
+    public static void setTransactionDao(TransactionDao transactionDao) {
+        BankAccount.transactionDao = transactionDao;
+    }
+
+    public static Calendar getTimeSystem() {
+        return timeSystem;
     }
 }

@@ -2,6 +2,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -14,12 +16,18 @@ import static org.mockito.Mockito.*;
  */
 public class BankAccountTest {
     BankAccountDao bankAccountDao = mock(BankAccountDao.class);
+    TransactionDao transactionDao = mock(TransactionDao.class);
+    Calendar mockTime = mock(Calendar.class);
     public final String accountNumber = "1234567890";
 
     @Before
     public void setUp() {
         reset(bankAccountDao);
+        reset(mockTime);
+        reset(transactionDao);
         BankAccount.setBankAccountDao(bankAccountDao);
+        BankAccount.setTimeSystem(mockTime);
+        BankAccount.setTransactionDao(transactionDao);
     }
 
     @Test
@@ -79,6 +87,21 @@ public class BankAccountTest {
 
     @Test
     public void testDepositAccountThenSaveTheTransactionLogToDatabase() {
+
+        double initBalance = 50;
+        double amount = 50;
+        double balance = 100;
+        long timeStamp = 10000;
+        String log = "deposited 50";
+
+        BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
+        when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+
+        BankAccount.deposit(accountNumber,amount,log);
+        verify(bankAccountDao).getAccount(accountNumber);
+
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
+        verify(transactionDao).depositLog(accountNumber,amount,timeStamp,log);
 
     }
 
