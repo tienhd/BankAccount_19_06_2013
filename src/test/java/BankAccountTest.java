@@ -77,5 +77,10 @@ public class BankAccountTest {
         assertEquals(logCaptor.getValue(),log);
     }
 
+    @Test
+    public void testDepositAccountThenSaveTheTransactionLogToDatabase() {
+
+    }
+
 
 }
