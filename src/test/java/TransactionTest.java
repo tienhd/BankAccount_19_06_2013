@@ -83,5 +83,11 @@ public class TransactionTest {
         verify(transactionDao).getTransactionOccurred();
     }
 
-
+    @Test
+    public void testGetTransactionOccurredBetween2TimeStamp() {
+        long startTime = 10000;
+        long endTime = 10500;
+        Transaction.getTransactionsOccurred(startTime,endTime);
+        verify(transactionDao).getTransactionOccurred(startTime,endTime);
+    }
 }
