@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -26,6 +27,10 @@ public class Transaction {
 
     public static void withdrawLog(String accountNumber, double amountMoney, String log) {
         long timeStamp = timeSystem.getTimeInMillis();
-        transactionDao.withdrawLog(accountNumber,amountMoney,timeStamp,log);
+        transactionDao.withdrawLog(accountNumber, amountMoney, timeStamp, log);
+    }
+
+    public static ArrayList<TransactionDTO> getTransactionsOccurred() {
+        return null;
     }
 }

@@ -76,4 +76,10 @@ public class TransactionTest {
         assertEquals(logCaptor.getValue(),log);
 
     }
+
+    @Test
+    public void testGetAllTransactionOccurred() {
+        Transaction.getTransactionsOccurred();
+        verify(transactionDao).getTransactionOccurred();
+    }
 }
