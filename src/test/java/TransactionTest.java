@@ -59,7 +59,7 @@ public class TransactionTest {
         long timeStamp = 10000;
 
         when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
-        Transaction.depositLog(accountNumber,amountMoney, log);
+        Transaction.withdrawLog(accountNumber,amountMoney, log);
 
         verify(mockTime).getTimeInMillis();
 

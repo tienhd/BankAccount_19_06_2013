@@ -23,4 +23,8 @@ public class Transaction {
         long timeStamp = timeSystem.getTimeInMillis();
         transactionDao.depositLog(accountNumber,amountMoney,timeStamp,log);
     }
+
+    public static void withdrawLog(String accountNumber, double amountMoney, String log) {
+
+    }
 }
