@@ -31,7 +31,9 @@ public class BankAccount {
         double newBalance = accountDTO.getBalance() + amount;
         bankAccountDao.saveAccount(accountNumber,newBalance,log);
         long timeStamp = timeSystem.getTimeInMillis();
-        transactionDao.depositLog(accountNumber,amount,timeStamp,log);
+        Transaction.setTransactionDao(transactionDao);
+        Transaction.setTimeSystem(timeSystem);
+        Transaction.depositLog(accountNumber,amount,log);
     }
 
     public static void setTimeSystem(Calendar timeSystem) {
@@ -51,6 +53,8 @@ public class BankAccount {
         double newBalance = accountDTO.getBalance() - amount;
         bankAccountDao.saveAccount(accountNumber,newBalance,log);
         long timeStamp = timeSystem.getTimeInMillis();
-        transactionDao.withdrawLog(accountNumber,amount,timeStamp,log);
+        Transaction.setTransactionDao(transactionDao);
+        Transaction.setTimeSystem(timeSystem);
+        Transaction.withdrawLog(accountNumber,amount,log);
     }
 }
