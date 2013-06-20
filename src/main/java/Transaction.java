@@ -42,6 +42,9 @@ public class Transaction {
     }
 
     public static ArrayList<TransactionDTO> getTransactionsOccurred(String accountNumber, int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Error on n ");
+        }
         return transactionDao.getTransactionOccurred(accountNumber,n);
     }
 }

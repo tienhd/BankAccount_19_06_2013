@@ -34,11 +34,15 @@ public class BankAccountTest {
     public void testOpenNewAccountWithZeroBalanceAndSaveToDatabase() {
         BankAccount.openAccount(accountNumber);
         double balance = 0;
+        long timeStamp = 10000;
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
+
         String log = "Open new account";
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<Long> timeStampCaptor = ArgumentCaptor.forClass(Long.class);
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
-        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture(),timeStampCaptor.capture());
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
         assertEquals(balanceCaptor.getValue(),balance,0.001);
         assertEquals(logCaptor.getValue(),log);
