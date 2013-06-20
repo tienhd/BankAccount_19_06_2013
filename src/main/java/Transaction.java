@@ -41,7 +41,7 @@ public class Transaction {
         return transactionDao.getTransactionOccurred(accountNumber,startTime,endTime);
     }
 
-    public static void getTransactionsOccurred(String accountNumber, int n) {
-
+    public static ArrayList<TransactionDTO> getTransactionsOccurred(String accountNumber, int n) {
+        return transactionDao.getTransactionOccurred(accountNumber,n);
     }
 }
