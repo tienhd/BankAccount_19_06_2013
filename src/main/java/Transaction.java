@@ -35,6 +35,9 @@ public class Transaction {
     }
 
     public static ArrayList<TransactionDTO> getTransactionsOccurred(long startTime, long endTime) {
+        if (startTime > endTime) {
+            throw new IllegalArgumentException("Error on timeStamp");
+        }
         return transactionDao.getTransactionOccurred(startTime,endTime);
     }
 }
