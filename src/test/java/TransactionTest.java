@@ -34,7 +34,7 @@ public class TransactionTest {
         long timeStamp = 10000;
 
         when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
-        Transaction.depositLog(accountNumber,amountMoney,timeStamp,log);
+        Transaction.depositLog(accountNumber,amountMoney, log);
 
         verify(mockTime).getTimeInMillis();
 

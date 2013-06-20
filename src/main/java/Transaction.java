@@ -19,7 +19,7 @@ public class Transaction {
         Transaction.timeSystem = timeSystem;
     }
 
-    public static void depositLog(String accountNumber, double amountMoney, long timeStamp, String log) {
+    public static void depositLog(String accountNumber, double amountMoney, String log) {
 
     }
 }
