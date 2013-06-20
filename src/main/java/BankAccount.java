@@ -19,7 +19,8 @@ public class BankAccount {
     public static void openAccount(String accountNumber) {
         double balance = 0;
         String log = "Open new account";
-        bankAccountDao.saveAccount(accountNumber,balance,log);
+        long timeStamp = timeSystem.getTimeInMillis();
+        bankAccountDao.saveAccount(accountNumber,balance,log,timeStamp);
     }
 
     public static BankAccountDTO getAccount(String accountNumber) {
