@@ -97,10 +97,11 @@ public class BankAccountTest {
         BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
         when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
 
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
+
         BankAccount.deposit(accountNumber,amount,log);
         verify(bankAccountDao).getAccount(accountNumber);
 
-        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
         verify(transactionDao).depositLog(accountNumber,amount,timeStamp,log);
 
     }
