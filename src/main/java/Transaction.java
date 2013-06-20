@@ -34,7 +34,7 @@ public class Transaction {
         return transactionDao.getTransactionOccurred();
     }
 
-    public static void getTransactionsOccurred(long startTime, long endTime) {
-        //To change body of created methods use File | Settings | File Templates.
+    public static ArrayList<TransactionDTO> getTransactionsOccurred(long startTime, long endTime) {
+        return transactionDao.getTransactionOccurred(startTime,endTime);
     }
 }
