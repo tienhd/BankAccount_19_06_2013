@@ -59,7 +59,7 @@ public class TransactionTest {
         long timeStamp = 10000;
 
         when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
-        Transaction.withdrawLog(accountNumber,amountMoney, log);
+        Transaction.withdrawLog(accountNumber, amountMoney, log);
 
         verify(mockTime).getTimeInMillis();
 
@@ -68,7 +68,7 @@ public class TransactionTest {
         ArgumentCaptor<Long> timeStampCaptor = ArgumentCaptor.forClass(Long.class);
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
 
-        verify(transactionDao).withdrawLog(accountNumberCaptor.capture(),amountMoneyCaptor.capture(),timeStampCaptor.capture(),logCaptor.capture());
+        verify(transactionDao).withdrawLog(accountNumberCaptor.capture(), amountMoneyCaptor.capture(), timeStampCaptor.capture(), logCaptor.capture());
 
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
         assertEquals(amountMoneyCaptor.getValue(),amountMoney,0.001);
@@ -103,5 +103,11 @@ public class TransactionTest {
         int n = 5;
         Transaction.getTransactionsOccurred(accountNumber,n);
         verify(transactionDao).getTransactionOccurred(accountNumber,n);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void teasGetNNewestTransactionThrowExceptionWhenNIsUnacceptablyValue() {
+        int n = -1;
+        Transaction.getTransactionsOccurred(accountNumber,n);
     }
 }
