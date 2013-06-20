@@ -90,4 +90,11 @@ public class TransactionTest {
         Transaction.getTransactionsOccurred(startTime,endTime);
         verify(transactionDao).getTransactionOccurred(startTime,endTime);
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testGetTransactionOccurredBetween2TimeStampThrowExceptionWhenEndTimeSmallerThanStartTime() {
+        long startTime = 10500;
+        long endTime = 10000;
+        Transaction.getTransactionsOccurred(startTime,endTime);
+    }
 }
