@@ -129,5 +129,24 @@ public class BankAccountTest {
         assertEquals(logCaptor.getValue(),log);
     }
 
+    @Test
+    public void testWithdrawAccountThenSaveTheTransactionLogToDatabase() {
 
+        double initBalance = 50;
+        double amount = 50;
+        double balance = 100;
+        long timeStamp = 10000;
+        String log = "deposited 50";
+
+        BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
+        when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
+
+        BankAccount.withdraw(accountNumber,amount,log);
+        verify(bankAccountDao).getAccount(accountNumber);
+
+        verify(transactionDao).withdrawLog(accountNumber,amount,timeStamp,log);
+
+    }
 }
