@@ -51,4 +51,29 @@ public class TransactionTest {
         assertEquals(logCaptor.getValue(),log);
 
     }
+
+    @Test
+    public void testWithdrawAccountThenSaveTheTransactionLogToDatabase() {
+        double amountMoney = 50;
+        String log = "Withdraw 50 from account";
+        long timeStamp = 10000;
+
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
+        Transaction.depositLog(accountNumber,amountMoney, log);
+
+        verify(mockTime).getTimeInMillis();
+
+        ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Double> amountMoneyCaptor = ArgumentCaptor.forClass(Double.class);
+        ArgumentCaptor<Long> timeStampCaptor = ArgumentCaptor.forClass(Long.class);
+        ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(transactionDao).withdrawLog(accountNumberCaptor.capture(),amountMoneyCaptor.capture(),timeStampCaptor.capture(),logCaptor.capture());
+
+        assertEquals(accountNumberCaptor.getValue(),accountNumber);
+        assertEquals(amountMoneyCaptor.getValue(),amountMoney,0.001);
+        assertEquals(timeStampCaptor.getValue().longValue(),timeStamp);
+        assertEquals(logCaptor.getValue(),log);
+
+    }
 }

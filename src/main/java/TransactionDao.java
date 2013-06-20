@@ -10,4 +10,8 @@ public class TransactionDao {
     public void depositLog(String accountNumber, Double amount, Long timeStamp, String log) {
 
     }
+
+    public void withdrawLog(String accountNumber, Double amount, Long timeStamp, String log) {
+
+    }
 }
