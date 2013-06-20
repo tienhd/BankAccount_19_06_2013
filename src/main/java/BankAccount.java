@@ -50,5 +50,7 @@ public class BankAccount {
         BankAccountDTO accountDTO = bankAccountDao.getAccount(accountNumber);
         double newBalance = accountDTO.getBalance() - amount;
         bankAccountDao.saveAccount(accountNumber,newBalance,log);
+        long timeStamp = timeSystem.getTimeInMillis();
+        transactionDao.withdrawLog(accountNumber,amount,timeStamp,log);
     }
 }
