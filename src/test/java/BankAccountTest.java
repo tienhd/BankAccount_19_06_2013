@@ -31,7 +31,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testOpenNewAccountWithZeroBalanceAndSaveToDatabase() {
+    public void testOpenNewAccountWithZeroBalanceAndSaveToDatabase() throws Exception{
         BankAccount.openAccount(accountNumber);
         double balance = 0;
         long timeStamp = 10000;
@@ -57,7 +57,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testOpenNewAccountThenGetByAccountNumber() {
+    public void testOpenNewAccountThenGetByAccountNumber() throws Exception{
         BankAccount.openAccount(accountNumber);
         BankAccountDTO accountDTO = new BankAccountDTO(accountNumber);
         when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
@@ -67,14 +67,16 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testDepositMoneyToAccountThenSaveChangeToDatabase() {
+    public void testDepositMoneyToAccountThenSaveChangeToDatabase() throws Exception{
         double initBalance = 50;
         double amount = 50;
         double balance = 100;
+        long timeStamp = 10000;
         String log = "deposited 50";
 
         BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
         when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
 
         BankAccount.deposit(accountNumber,amount,log);
         verify(bankAccountDao).getAccount(accountNumber);
@@ -82,15 +84,17 @@ public class BankAccountTest {
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
-        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
+        ArgumentCaptor<Long> timeCaptor = ArgumentCaptor.forClass(Long.class);
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture(),timeCaptor.capture());
 
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
         assertEquals(balanceCaptor.getValue(),balance, 0.001);
         assertEquals(logCaptor.getValue(),log);
+        assertEquals(timeCaptor.getValue().longValue(),timeStamp);
     }
 
     @Test
-    public void testDepositAccountThenSaveTheTransactionLogToDatabase() {
+    public void testDepositAccountThenSaveTheTransactionLogToDatabase() throws Exception{
 
         double initBalance = 50;
         double amount = 50;
@@ -111,30 +115,33 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testWithdrawMoneyFromAccountThenSaveChangeToDatabase() {
+    public void testWithdrawMoneyFromAccountThenSaveChangeToDatabase() throws Exception{
         double initBalance = 100;
         double amount = 50;
         double balance = 50;
+        long timeStamp = 10000;
         String log = "withdraw 50";
 
         BankAccountDTO accountDTO = new BankAccountDTO(accountNumber,initBalance);
         when(bankAccountDao.getAccount(accountNumber)).thenReturn(accountDTO);
-
+        when(mockTime.getTimeInMillis()).thenReturn(timeStamp);
         BankAccount.withdraw(accountNumber,amount,log);
         verify(bankAccountDao).getAccount(accountNumber);
 
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Double> balanceCaptor = ArgumentCaptor.forClass(Double.class);
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
-        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture());
+        ArgumentCaptor<Long> timeCaptor = ArgumentCaptor.forClass(Long.class);
+        verify(bankAccountDao).saveAccount(accountNumberCaptor.capture(),balanceCaptor.capture(),logCaptor.capture(),timeCaptor.capture());
 
         assertEquals(accountNumberCaptor.getValue(),accountNumber);
         assertEquals(balanceCaptor.getValue(),balance, 0.001);
         assertEquals(logCaptor.getValue(),log);
+        assertEquals(timeCaptor.getValue().longValue(),timeStamp);
     }
 
     @Test
-    public void testWithdrawAccountThenSaveTheTransactionLogToDatabase() {
+    public void testWithdrawAccountThenSaveTheTransactionLogToDatabase() throws Exception{
 
         double initBalance = 50;
         double amount = 50;

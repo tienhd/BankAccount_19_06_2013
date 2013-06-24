@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.Calendar;
 
 /**
@@ -16,7 +17,7 @@ public class BankAccount {
         BankAccount.bankAccountDao = bankAccountDao;
     }
 
-    public static void openAccount(String accountNumber) {
+    public static void openAccount(String accountNumber) throws Exception{
         double balance = 0;
         String log = "Open new account";
         long timeStamp = timeSystem.getTimeInMillis();
@@ -27,11 +28,12 @@ public class BankAccount {
         return bankAccountDao.getAccount(accountNumber);
     }
 
-    public static void deposit(String accountNumber, double amount, String log) {
+    public static void deposit(String accountNumber, double amount, String log) throws Exception{
         BankAccountDTO accountDTO = bankAccountDao.getAccount(accountNumber);
         double newBalance = accountDTO.getBalance() + amount;
-        bankAccountDao.saveAccount(accountNumber,newBalance,log);
         long timeStamp = timeSystem.getTimeInMillis();
+        bankAccountDao.saveAccount(accountNumber,newBalance,log,timeStamp);
+
         Transaction.setTransactionDao(transactionDao);
         Transaction.setTimeSystem(timeSystem);
         Transaction.depositLog(accountNumber,amount,log);
@@ -49,11 +51,12 @@ public class BankAccount {
         return timeSystem;
     }
 
-    public static void withdraw(String accountNumber, double amount, String log) {
+    public static void withdraw(String accountNumber, double amount, String log) throws Exception{
         BankAccountDTO accountDTO = bankAccountDao.getAccount(accountNumber);
         double newBalance = accountDTO.getBalance() - amount;
-        bankAccountDao.saveAccount(accountNumber,newBalance,log);
         long timeStamp = timeSystem.getTimeInMillis();
+        bankAccountDao.saveAccount(accountNumber,newBalance,log,timeStamp);
+
         Transaction.setTransactionDao(transactionDao);
         Transaction.setTimeSystem(timeSystem);
         Transaction.withdrawLog(accountNumber,amount,log);

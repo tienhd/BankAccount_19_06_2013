@@ -9,6 +9,7 @@ public class BankAccountDTO {
     private String accountNumber;
     private double balance;
     private String log;
+    private long timeStamp;
 
     public BankAccountDTO(String accountNumber) {
         this.accountNumber = accountNumber;
@@ -40,7 +41,13 @@ public class BankAccountDTO {
         this.log = log;
     }
 
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
+    public long getTimeStamp() {
+        return timeStamp;
+    }
     public String getAccountNumber() {
         return accountNumber;
     }
