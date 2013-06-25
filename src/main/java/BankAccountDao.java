@@ -1,5 +1,6 @@
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -25,7 +26,19 @@ public class BankAccountDao {
         dbConnection.createStatement().executeUpdate(queryString);
     }
 
-    public BankAccountDTO getAccount(String capture) {
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    public BankAccountDTO getAccount(String accountNumber) throws SQLException{
+        //return null;
+
+        String queryString = "SELECT * FROM BANK_ACCOUNT WHERE ACCOUNT_NUMBER = " + accountNumber;
+        ResultSet resultSet = dbConnection.createStatement().executeQuery(queryString);
+        if (resultSet.next())
+        {
+            return new BankAccountDTO(accountNumber,resultSet.getDouble("balance"),resultSet.getString("description"));
+        }
+        else
+        {
+            return null;
+        }
+
     }
 }

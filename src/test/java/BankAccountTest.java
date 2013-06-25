@@ -49,7 +49,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testGetTheAccountByAccountNumber() {
+    public void testGetTheAccountByAccountNumber() throws Exception{
         BankAccount.getAccount(accountNumber);
         ArgumentCaptor<String> accountNumberCaptor = ArgumentCaptor.forClass(String.class);
         verify(bankAccountDao).getAccount(accountNumberCaptor.capture());

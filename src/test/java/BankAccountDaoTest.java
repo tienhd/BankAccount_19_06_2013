@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -80,5 +82,16 @@ public class BankAccountDaoTest
         ResultSet resultSet = myConnection.createStatement().executeQuery(queryString);
 
         assertTrue(resultSet.next());
+    }
+
+    @Test
+    public void testGetAccountFromDataBase() throws Exception
+    {
+        BankAccountDao bankAccountDao = new BankAccountDao(dataSource());
+        BankAccountDTO result1 = bankAccountDao.getAccount("1234567890");
+        BankAccountDTO result2 = bankAccountDao.getAccount("0123456789");
+
+        assertEquals(result1.getAccountNumber(),"1234567890");
+        assertEquals(result2, null);
     }
 }

@@ -24,7 +24,7 @@ public class BankAccount {
         bankAccountDao.saveAccount(accountNumber,balance,log,timeStamp);
     }
 
-    public static BankAccountDTO getAccount(String accountNumber) {
+    public static BankAccountDTO getAccount(String accountNumber) throws Exception{
         return bankAccountDao.getAccount(accountNumber);
     }
 
